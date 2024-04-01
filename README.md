@@ -4,4 +4,6 @@ Module1：https://www.bilibili.com/video/BV1Zj421R7D1
 
 Module2：https://www.bilibili.com/video/BV1yZ421t7XP
 
+Module3：https://www.bilibili.com/video/BV1rZ421t74r
+
 其他笔记见视频评论区。
