@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Module1" />
+        <module name="Module3" />
+        <module name="Module2" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Book3" target="1.8" />
+      <module name="BooksBySpringBoot" target="1.8" />
+      <module name="Module1" target="1.8" />
+      <module name="Module2" target="1.8" />
+      <module name="Module3" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
