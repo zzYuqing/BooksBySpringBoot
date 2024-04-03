@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoyo.module5.mapper.BorrowBookMapper">
+
+    <select id="selectByCondition" resultType="integer">
+        select book_id from borrow_book
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            <if test="userId!=null">
+                and user_id=#{userId}
+            </if>
+            <if test="bookId!=null">
+                and book_id=#{bookId}
+            </if>
+            <if test="borrowDate!=null">
+                and borrow_date=#{borrowDate}
+            </if>
+            <if test="returnDate!=null">
+                and return_date=#{returnDate}
+            </if>
+        </where>
+    </select>
+</mapper>

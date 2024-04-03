@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoyo.module5.mapper.BookMapper">
+    <sql id="commonSelect">
+        select * from book
+    </sql>
+
+    <select id="findAllBooks" resultType="com.yoyo.module5.pojo.Book">
+        <include refid="commonSelect"/>
+    </select>
+
+    <select id="findById" resultType="com.yoyo.module5.pojo.Book">
+        <include refid="commonSelect"/>
+        where id=#{id}
+    </select>
+
+<!--    update book set borrowed=false where id in(1,2,3)-->
+    <update id="returnBooks">
+        update book set borrowed=false
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
