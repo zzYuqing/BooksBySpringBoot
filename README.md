@@ -10,6 +10,6 @@ Module4：https://www.bilibili.com/video/BV1WH4y1n7Nc
 
 Module5：https://www.bilibili.com/video/BV18m411r71D
 
-
+Module6：https://www.bilibili.com/video/BV1KE42137oD
 
 其他笔记见视频评论区。
