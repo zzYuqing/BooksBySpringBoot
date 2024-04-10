@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService {
         userMapper.deleteUser(userId);
 //        bookIdList.forEach(bookId->bookMapper.returnBook(bookId));
         }
+
+    @Override
+    public User login(User user) {
+        return userMapper.selectUser(user);
+    }
 }

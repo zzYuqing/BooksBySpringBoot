@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List with Pagination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #paginationControl {
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            padding: 5px;
+            width: 50px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function fetchBooks() {
+            const pageNum = document.getElementById('pageNum').value || 1;
+            const pageSize = document.getElementById('pageSize').value || 5;
+            fetch(`http://localhost:8080/books?page=${pageNum}&pageSize=${pageSize}`)
+                .then(response => response.json())
+                .then(data => {
+                    const books = data.data.rows; // 获取书籍数据的正确路径
+                    const table = document.getElementById('booksTable');
+                    table.innerHTML = '<tr><th>ID</th><th>Name</th><th>Author</th><th>Publish Date</th><th>Price</th><th>Borrowed</th></tr>'; // Reset table and add headers
+                    books.forEach(book => {
+                        const row = table.insertRow();
+                        row.insertCell(0).textContent = book.id;
+                        row.insertCell(1).textContent = book.name;
+                        row.insertCell(2).textContent = book.author;
+                        row.insertCell(3).textContent = book.publishDate;
+                        row.insertCell(4).textContent = `$${book.price.toFixed(2)}`; // Format price as currency
+                        row.insertCell(5).textContent = book.borrowed ? 'Yes' : 'No'; // Show 'Yes' if borrowed is true, 'No' otherwise
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+    </script>
+</head>
+<body>
+<h1>Book List with Pagination</h1>
+<div id="paginationControl">
+    Page Number: <input type="number" id="pageNum" value="1">
+    Page Size: <input type="number" id="pageSize" value="10">
+    <button onclick="fetchBooks()">Load Books</button>
+</div>
+<table id="booksTable">
+    <tr>
+        <th>Name</th>
+        <th>Author</th>
+    </tr>
+</table>
+</body>
+</html>

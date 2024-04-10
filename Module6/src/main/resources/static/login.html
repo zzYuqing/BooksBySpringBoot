@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图书管理系统</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: url('images/login/background.jpg') no-repeat center center fixed; 
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .login-container {
+        background-color: #fff;
+        padding: 40px;
+        width: 350px; /* Adjusted width */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+    .input-group label {
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    .input-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .input-group input {
+        width: 90%;
+        padding: 10px 10px 10px 40px;
+        padding-left: 35px; /* Space for icon */
+        font-size: 13px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .input-group img {
+        position: absolute;
+        left: 3%;
+        top: 68%;
+        transform: translateY(-50%);
+        height: 20px;
+        width: 20px;
+    }
+    .login-button {
+        background: linear-gradient(to right, #ff758c, #ff7eb3);
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        margin-top: 20px;
+        font-size: 15px;
+    }
+    .login-button:hover {
+        opacity: 0.9;
+    }
+    .register-link {
+        color: #708090;
+        text-decoration: none;
+        display: block;
+        margin-top: 20px;
+        font-size: 13px;
+    }
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>登录</h2>
+    <div class="input-group">
+        <label for="username">用户名</label>
+        <img src="images/login/user.png" alt="User Icon">
+        <input type="text" id="username" placeholder="请输入用户名">
+    </div>
+    <div class="input-group">
+        <label for="password">密码</label>
+        <img src="images/login/password.png" alt="Password Icon">
+        <input type="password" id="password" placeholder="请输入密码">
+	</div>
+    <button class="login-button" onclick="login()">登录</button>
+    <a href="register.html" class="register-link">立即注册</a>
+</div>
+<script>
+    function login() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        var requestBody = {
+            username: username,
+            password: password
+        };
+
+        fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then(function(response) {
+                return response.json(); // 假设后端总是返回JSON响应
+            })
+            .then(function(data) {
+                if (data.code === 1) {
+                    // 登录成功
+                    window.location.href = 'home.html';
+                } else {
+                    // 登录失败，显示消息
+                    alert('登录失败：' + data.msg);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error during login:', error);
+                alert('登录过程中发生错误。');
+            });
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Library Management System</h1>
+
+<h2>Books</h2>
+<button onclick="findAllBooks()">Show All Books</button>
+<form onsubmit="findBookById(event)">
+    <input type="text" id="findBookId" placeholder="Enter Book ID">
+    <button type="submit">Find Book by ID</button>
+</form>
+<form onsubmit="insertBook(event)">
+    <input type="text" id="insertBookData" placeholder="Enter Book Data">
+    <button type="submit">Insert Book</button>
+</form>
+<form onsubmit="deleteBook(event)">
+    <input type="text" id="deleteBookId" placeholder="Enter Book ID">
+    <button type="submit">Delete Book</button>
+</form>
+<form onsubmit="updateBook(event)">
+    <input type="text" id="updateBookData" placeholder="Enter Book Data">
+    <button type="submit">Update Book</button>
+</form>
+
+<h2>Users</h2>
+<form onsubmit="insertUser(event)">
+    <input type="text" id="insertUserData" placeholder="Enter User Data">
+    <button type="submit">Insert User</button>
+</form>
+<form onsubmit="deleteUser(event)">
+    <input type="text" id="deleteUserId" placeholder="Enter User ID">
+    <button type="submit">Delete User</button>
+</form>
+
+<h2>Borrowing</h2>
+<form onsubmit="borrowBook(event)">
+    <input type="text" id="borrowBookData" placeholder="Enter Borrowing Data">
+    <button type="submit">Borrow Book</button>
+</form>
+<form onsubmit="returnBook(event)">
+    <input type="text" id="returnBookData" placeholder="Enter Return Data">
+    <button type="submit">Return Book</button>
+</form>
+<div id="bookDetails"></div>
+
+<script>
+    function findAllBooks() {
+        window.location.href = 'findBooks.html';
+        // Implement AJAX call to GET /findAllBook
+    }
+
+    function findBookById(event) {
+        event.preventDefault();
+        var bookId = document.getElementById('findBookId').value; // 获取书籍ID的值
+        var url = 'http://localhost:8080/books/' + bookId; // 构建URL
+
+        fetch(url) // 发送GET请求到后端
+            .then(function(response) {
+                return response.json(); // 将响应转换为JSON
+            })
+            .then(function(data) {
+                if (data.code === 1 && data.msg === 'success') {
+                    // 检查返回的数据中的code和msg字段
+                    const book = data.data; // 假定找到的书籍在rows数组的第一位
+                    const detailsElement = document.getElementById('bookDetails');
+                    // 创建显示信息的字符串
+                    const bookDetails = `
+							<p>ID: ${book.id}</p>
+							<p>Name: ${book.name}</p>
+							<p>Author: ${book.author}</p>
+							<p>Publish Date: ${new Date(book.publishDate).toLocaleDateString()}</p>
+							<p>Price: $${book.price}</p>
+							<p>Borrowed: ${book.borrowed ? 'Yes' : 'No'}</p>
+						`;
+                    detailsElement.innerHTML = bookDetails; // 更新页面上的bookDetails元素
+                } else {
+                    // 处理错误或未找到书籍的情况
+                    document.getElementById('bookDetails').textContent = 'Book not found or error retrieving details.';
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error); // 如果有错误，打印出来
+                document.getElementById('bookDetails').textContent = 'Error fetching book details.';
+            });
+    }
+
+
+
+    function insertBook(event) {
+        event.preventDefault();
+        // Implement AJAX call to POST /InsertBook with data from #insertBookData
+    }
+
+    function deleteBook(event) {
+        event.preventDefault();
+        // Implement AJAX call to DELETE /deleteBook with ID from #deleteBookId
+    }
+
+    function updateBook(event) {
+        event.preventDefault();
+        // Implement AJAX call to PUT /updateBook with data from #updateBookData
+    }
+
+    function insertUser(event) {
+        event.preventDefault();
+        // Implement AJAX call to POST /insertUser with data from #insertUserData
+    }
+
+    function deleteUser(event) {
+        event.preventDefault();
+        // Implement AJAX call to DELETE /deleteUser with ID from #deleteUserId
+    }
+
+    function borrowBook(event) {
+        event.preventDefault();
+        // Implement AJAX call to POST /borrowbook with data from #borrowBookData
+    }
+
+    function returnBook(event) {
+        event.preventDefault();
+        // Implement AJAX call to PUT /returnBook with data from #returnBookData
+    }
+</script>
+</body>
+</html>
